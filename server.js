@@ -1,4 +1,4 @@
-var io = require('socket.io').listen(5000);
+var io = require('socket.io').listen(1337);
 var LightStrips = require('./LPD8806').LightStrips;
 
 var numberOfLEDs = 64;
@@ -25,8 +25,8 @@ var lightsOn = function(percentage, rgb){
 	lights.sync();
 };
 
-var showAmplitude = function(){
-	var rgb = [2550,0,0];
+var showAmplitude = function(data){
+	var rgb = [255,0,0];
 	if(data.rgb){
 		rgb = data.rgb;
 	}
@@ -35,6 +35,7 @@ var showAmplitude = function(){
 
 io.sockets.on('connection', function (socket) {
 	socket.on('data', function (data) {
+		//console.log(data);
 		showAmplitude(data);
   });
 });
