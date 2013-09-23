@@ -13,7 +13,8 @@ var half = numberOfLEDs/2;
 var lightsOn = function(percentage, rgb){
 	var start = 0; 
 	var end = ~~((numberOfLEDs/2) * (percentage / 100));
-
+//	console.log(percentage);
+//	console.log(rgb);
 
 	lights.fill(0, 0, 0, start, half - end);
 	lights.fill(rgb[0], rgb[1], rgb[2], half - end, half);  
@@ -34,8 +35,8 @@ var showAmplitude = function(data){
 };
 
 io.sockets.on('connection', function (socket) {
-	socket.on('data', function (data) {
-		//console.log(data);
-		showAmplitude(data);
+	socket.on('data', function (msg) {
+//		console.log(msg.data);
+		showAmplitude(msg.data);
   });
 });
