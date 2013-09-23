@@ -1,0 +1,21 @@
+{
+  "name": "node-led-visualiser",
+  "version": "0.0.0",
+  "description": "LEDstripe music visualiser",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/evilmachina/node-tc-status.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "spi": "git://github.com/evilmachina/node-spi.git",
+    "easing": "0.0.3",
+    "socket.io-client": "~0.9.11"
+  }
+}
