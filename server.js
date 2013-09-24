@@ -1,3 +1,4 @@
+"use strict";
 var io = require('socket.io').listen(1337);
 var LightStrips = require('./LPD8806').LightStrips;
 
@@ -40,7 +41,7 @@ var showAmplitude = function(data){
 		rgb = data.rgb;
 	}
 	try{
-			serialPort.write(new Buffer([0x04, rgb[0], rgb[1], rgb[2],0x10]));
+			serialPort.write(new Buffer([4, rgb[0], rgb[1], rgb[2], 10]));
 	}catch(e){
 		console.log(e);
 	}
@@ -51,6 +52,6 @@ var showAmplitude = function(data){
 io.sockets.on('connection', function (socket) {
 	socket.on('data', function (data) {
 		//console.log(data);
-		showAmplitude(data);
+		showAmplitude(data.data);
   });
 });
