@@ -17,6 +17,7 @@
     "spi": "git://github.com/evilmachina/node-spi.git",
     "easing": "0.0.3",
     "socket.io-client": "~0.9.11",
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "serialport": "~1.1.3"
   }
 }
