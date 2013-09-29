@@ -24,11 +24,6 @@ var lightsOn = function(percentage, rgb){
 	var start = 0; 
 	var end = ~~((numberOfLEDs/2) * (percentage / 100));
 	
-	console.log(start);
-	console.log(half - end);
-	console.log(end + half);
-	console.log(numberOfLEDs);
-
 	lights.fill(0, 0, 0, start, half - end);
 	lights.fill(rgb[0], rgb[1], rgb[2], half - end, half);  
 
