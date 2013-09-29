@@ -25,20 +25,22 @@ var tailSize = 3;
 
 var lightsOn = function(percentage, rgb){
 	var i = 0;
-	var ledArray = new Array(half);
+	var ledArray = [];;
 	var ledsOn = ~~((numberOfLEDs/2) * (percentage / 100));
 	var ledsOff = half - ledsOn;
 	
 	for( i = 0; i < ledsOff; i++){
-		ledArray[i] = [0,0,0];
+		ledArray.push([0,0,0]);
 	}
-	for( i = ledsOff; i < ledsOn; i++){
-		ledArray[i] = rgb;
+	for( i = ledsOff; i < half; i++){
+		ledArray.push(rgb);
 	}
 
-	ledArray.concat(ledArray.slice(0).reverse());
+
+	var revercedLedArray = ledArray.slice(0).reverse()
 	for( i = 0; i < numberOfLEDs; i++){
-		lights.set(i, ledArray[0],ledArray[1],ledArray[2]);
+		lights.set(i, ledArray[i][0],ledArray[i][1],ledArray[i][2]);
+		//lights.set(i + half , revercedLedArray[0],revercedLedArray[1],revercedLedArray[2]);
 	}
 
 
