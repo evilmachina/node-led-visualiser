@@ -20,15 +20,34 @@ var off = function(){
 
 var half = numberOfLEDs/2;
 
+var tailSize = 3;
+
+
 var lightsOn = function(percentage, rgb){
-	var start = 0; 
+	var ledArray = new Array(half);
+	var ledsOn = ~~((numberOfLEDs/2) * (percentage / 100));
+	var ledsOff = half - ledsOn;
+	for(int i = 0; i < ledsOff; i++){
+		ledArray[i] = [0,0,0];
+	}
+	for(int i = 0; i < ledsOn; i++){
+		ledArray[i] = rgb;
+	}
+
+	ledArray.concat(ledArray.slice(0).reverse());
+	for(int i = 0; i < numberOfLEDs; i++){
+		lights.set(i, ledArray[0],ledArray[1],ledArray[2]);
+	}
+
+
+	/*var start = 0; 
 	var end = ~~((numberOfLEDs/2) * (percentage / 100));
 	lights.fill(0, 0, 0, start, half - end);
 	lights.fill(rgb[0], rgb[1], rgb[2], half - end, half);  
 
 	lights.fill(rgb[0], rgb[1], rgb[2], half - end, end + half);
 	lights.fill(0, 0, 0, end + half, numberOfLEDs);
-
+	*/
 
 	lights.sync();
 };
