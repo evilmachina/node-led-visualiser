@@ -2,7 +2,7 @@
 var io = require('socket.io').listen(1337);
 var LightStrips = require('./LPD8806').LightStrips;
 
-var numberOfLEDs = 54;
+var numberOfLEDs = 64;
 var lights = new LightStrips('/dev/spidev0.0', numberOfLEDs);
 
 var xbeeSerialPort = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A800csie-if00-port0';
@@ -76,18 +76,18 @@ var showAmplitude = function(data){
 };
 
 io.sockets.on('connection', function (socket) {
-	var rgb = [0,0,0];
 	socket.on('volume', function (data) {
 		//console.log(data);
-		rgb = data.data.rgb;
 		showAmplitude(data.data);
   	});
         socket.on('beat', function (msg) {
                 //console.log(data);
 		var data = msg.data;
-		if(data.rgb && !((data.rgb[0] == 0) && (data.rgb[1] == 0) &&  (data.rgb[2] == 0)) ){
-                	rgb = data.rgb;
-        	}
+		var level = data.percentage / 100;
+               	var rgb = [Math.round(data.rgb[0] * level),
+			   Math.round(data.rgb[1] * level),
+			   Math.round(data.rgb[2] * level)];
+        	
         	try{
                         serialPort.write(new Buffer([4, rgb[0], rgb[1], rgb[2], 10]));
         	}catch(e){
