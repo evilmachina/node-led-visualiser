@@ -20,7 +20,7 @@ var off = function(){
 
 var half = numberOfLEDs/2;
 
-var tailSize = 3,
+var tailSize = 5,
 	fade = 0.7;
 
 
@@ -31,22 +31,23 @@ var lightsOn = function(percentage, rgb){
 	var ledsOff = half - ledsOn;
 	
 
-	var ts = ledsOff <= tailSize ? ledsOff  : 3;
+	var ts = ledsOff <= tailSize ? ledsOff  : tailSize;
 
-	ledsOff = Math.min(ledsOff - 3, 0);
+	ledsOff = Math.max(ledsOff - tailSize, 0);
 
 	for( i = 0; i < ledsOff; i++){
 		ledArray.push([0,0,0]);
 	}
-	for( i = ledsOff; i < ts; i++){
-		var level = ((tailSize - i) / tailSize) * fade;
+	for( i = ts; i > 0; i--){
+		//var level = ((tailSize - i) / tailSize) * fade;
+		var level =((tailSize - i) / tailSize) * fade;
 		ledArray.push([rgb[0] * level, rgb[1] * level, rgb[2] * level]);
 	}
-	for( i = ledsOff + ts; i < half; i++){
+	for( i = 0; i < ledsOn; i++){
 		ledArray.push(rgb);
 	}
 
-
+//	console.log(ledArray);
 	var revercedLedArray = ledArray.slice(0).reverse();
 	for( i = 0; i < half; i++){
 		lights.set(i, ledArray[i][0],ledArray[i][1],ledArray[i][2]);
