@@ -51,7 +51,7 @@ var createLed = function(light, lightSettings){
                 {"type":"button", "name":"Off", "id":"off"},
                 {"type":"hsl", "name":"color picker", "id":"color",
                 	 "curentState":												
-                	 				{"hue":1,"bri":1,"sat":20}}
+                	 				{"hue":0,"bri":1,"sat":0}}
             ]
 	};	
 };
@@ -68,19 +68,53 @@ var off = function(){
 	sendCollor([0,0,0]);
 };
 
-function hsvToRgb(h, s, v){
-      //h *= 360;
-        var r, g, b, X, C;
-        h = (h % 360) / 60;
-        C = v * s;
-        X = C * (1 - Math.abs(h % 2 - 1));
-        R = G = B = v - C;
-
-        h = ~~h;
-        r = [C, X, 0, 0, X, C][h];
-        g = [X, C, C, X, 0, 0][h];
-        b = [0, 0, X, C, C, X][h];
-    return [Math.floor(r * 255), Math.floor(g * 255), Math.floor(b * 255)];
+function hsv2rgb(h,s,v) {
+// Adapted from http://www.easyrgb.com/math.html
+// hsv values = 0 - 1, rgb values = 0 - 255
+var r, g, b;
+var RGB = new Array();
+if(s==0){
+  RGB['red']=RGB['green']=RGB['blue']=Math.round(v*255);
+}else{
+  // h must be < 1
+  var var_h = h * 6;
+  if (var_h==6) var_h = 0;
+  //Or ... var_i = floor( var_h )
+  var var_i = Math.floor( var_h );
+  var var_1 = v*(1-s);
+  var var_2 = v*(1-s*(var_h-var_i));
+  var var_3 = v*(1-s*(1-(var_h-var_i)));
+  if(var_i==0){ 
+    var_r = v; 
+    var_g = var_3; 
+    var_b = var_1;
+  }else if(var_i==1){ 
+    var_r = var_2;
+    var_g = v;
+    var_b = var_1;
+  }else if(var_i==2){
+    var_r = var_1;
+    var_g = v;
+    var_b = var_3
+  }else if(var_i==3){
+    var_r = var_1;
+    var_g = var_2;
+    var_b = v;
+  }else if (var_i==4){
+    var_r = var_3;
+    var_g = var_1;
+    var_b = v;
+  }else{ 
+    var_r = v;
+    var_g = var_1;
+    var_b = var_2
+  }
+  //rgb results = 0 ÷ 255  
+  RGB['red']=Math.round(var_r * 255);
+  RGB['green']=Math.round(var_g * 255);
+  RGB['blue']=Math.round(var_b * 255);
+  }
+return [RGB.red, RGB.green, RGB.blue];  
 };
 
 var createActonHandler = function(){
@@ -106,7 +140,7 @@ var createActonHandler = function(){
 		console.log("data");
 		console.log(data);
 
-		var rgb = hsvToRgb(data.hue, data.sat, data.bri);
+		var rgb = hsv2rgb(data.hue, data.sat, data.bri);
 		console.log(rgb);
 		sendCollor(rgb);
 	};
