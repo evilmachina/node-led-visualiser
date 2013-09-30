@@ -22,8 +22,9 @@ var half = numberOfLEDs/2;
 
 var tailSize = 3;
 
-int i = 0;
+
 var lightsOn = function(percentage, rgb){
+	int i = 0;
 	var ledArray = new Array(half);
 	var ledsOn = ~~((numberOfLEDs/2) * (percentage / 100));
 	var ledsOff = half - ledsOn;
