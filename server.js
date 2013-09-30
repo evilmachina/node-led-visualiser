@@ -2,7 +2,7 @@
 var io = require('socket.io').listen(1337);
 var LightStrips = require('./LPD8806').LightStrips;
 
-var numberOfLEDs = 64;
+var numberOfLEDs = 54;
 var lights = new LightStrips('/dev/spidev0.0', numberOfLEDs);
 
 var xbeeSerialPort = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A800csie-if00-port0';
@@ -38,9 +38,9 @@ var lightsOn = function(percentage, rgb){
 
 
 	var revercedLedArray = ledArray.slice(0).reverse()
-	for( i = 0; i < numberOfLEDs; i++){
+	for( i = 0; i < half; i++){
 		lights.set(i, ledArray[i][0],ledArray[i][1],ledArray[i][2]);
-		//lights.set(i + half , revercedLedArray[0],revercedLedArray[1],revercedLedArray[2]);
+		lights.set(i + half , revercedLedArray[i][0],revercedLedArray[i][1],revercedLedArray[i][2]);
 	}
 
 
