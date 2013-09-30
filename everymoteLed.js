@@ -154,7 +154,7 @@ var createActonHandler = function(){
 	var data = {
 		"hue":  Math.round(value.hue * 360),
 		"sat":  Math.round(value.sat * 100),
-		"bri": 	Math.round(value.bri * 100);
+		"bri": 	Math.round(value.bri * 100)
 		};
 		console.log("value");
 		console.log(value);
