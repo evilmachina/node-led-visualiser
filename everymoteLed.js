@@ -1,7 +1,4 @@
-var io = require('socket.io-client'),
-   coffee = require('./coffee'),
-   temp = require('./DS18B20');
-
+var io = require('socket.io-client');
 var port = '80',
     server =  'thing.everymote.com';
 
@@ -43,7 +40,7 @@ var connectLed = function(thing, onAction){
 };
 
 var createLed = function(light, lightSettings){
-	var color = getHSLColor(lightSettings.state);
+	
 	return { 
 		"name": "Led Stripe",
 		"id": 4,
@@ -54,7 +51,7 @@ var createLed = function(light, lightSettings){
                 {"type":"button", "name":"Off", "id":"off"},
                 {"type":"hsl", "name":"color picker", "id":"color",
                 	 "curentState":												
-                	 				{"hue":0,"bri":0,"sat":0}}
+                	 				{"hue":1,"bri":1,"sat":20}}
             ]
 	};	
 };
@@ -101,14 +98,16 @@ var createActonHandler = function(){
 			"curentState":{"hue":value.hue,"bri":value.bri,"sat":value.sat}});
 	var data = {
 		"hue":  Math.round(value.hue * 65535),
-		"sat":  Math.round(value.sat * 255),
-		"bri": 	Math.round(value.bri * 255)
+		"sat":  value.sat,
+		"bri": 	value.bri
 		};
-		
+		console.log("value");
 		console.log(value);
+		console.log("data");
 		console.log(data);
 
 		var rgb = hsvToRgb(data.hue, data.sat, data.bri);
+		console.log(rgb);
 		sendCollor(rgb);
 	};
 
