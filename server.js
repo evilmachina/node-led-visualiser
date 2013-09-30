@@ -28,10 +28,11 @@ var lightsOn = function(percentage, rgb){
 	var ledArray = new Array(half);
 	var ledsOn = ~~((numberOfLEDs/2) * (percentage / 100));
 	var ledsOff = half - ledsOn;
+	
 	for( i = 0; i < ledsOff; i++){
 		ledArray[i] = [0,0,0];
 	}
-	for( i = 0; i < ledsOn; i++){
+	for( i = ledsOff; i < ledsOn; i++){
 		ledArray[i] = rgb;
 	}
 
