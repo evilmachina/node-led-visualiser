@@ -153,8 +153,8 @@ var createActonHandler = function(){
 			"curentState":{"hue":value.hue,"bri":value.bri,"sat":value.sat}});
 	var data = {
 		"hue":  Math.round(value.hue * 360),
-		"sat":  value.sat,
-		"bri": 	value.bri
+		"sat":  Math.round(value.sat * 100),
+		"bri": 	Math.round(value.bri * 100);
 		};
 		console.log("value");
 		console.log(value);
