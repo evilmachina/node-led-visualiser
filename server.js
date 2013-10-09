@@ -70,7 +70,10 @@ var lightsOn = function(percentage, rgb){
 var showAmplitude = function(data){
 	var rgb = [255,0,0];
 	if(data.rgb ){
-        	rgb = data.rgb;
+        	var level = data.percentage / 100;
+                 rgb = [Math.round(data.rgb[0] * level),
+                           Math.round(data.rgb[1] * level),
+                           Math.round(data.rgb[2] * level)];
         }
 	lightsOn(data.percentage, rgb);
 };
