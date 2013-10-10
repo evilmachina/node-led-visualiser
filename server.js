@@ -1,11 +1,12 @@
 "use strict";
-var io = require('socket.io').listen(1337);
-var LightStrips = require('./LPD8806').LightStrips;
+var io = require('socket.io').listen(1337),
+    LightStrips = require('./LPD8806').LightStrips,
+    config = require('./config');
 
-var numberOfLEDs = 54;
+var numberOfLEDs = config.numberOfLEDs;
 var lights = new LightStrips('/dev/spidev0.0', numberOfLEDs);
 
-var xbeeSerialPort = '/dev/serial/by-id/usb-Arduino__www.arduino.cc__Arduino_Mega_2560_64932343638351D0C241-if00';
+var xbeeSerialPort = config.serialPort;
 
 var serialport = require('serialport');
 var serialPort = new serialport.SerialPort(xbeeSerialPort,
