@@ -22,7 +22,7 @@ var off = function(){
 var half = numberOfLEDs/2;
 
 var tailSize = 5,
-	fade = 0.7;
+	fade = 0.9;
 
 
 var lightsOn = function(percentage, rgb){
