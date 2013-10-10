@@ -2,10 +2,10 @@
 var io = require('socket.io').listen(1337);
 var LightStrips = require('./LPD8806').LightStrips;
 
-var numberOfLEDs = 64;
+var numberOfLEDs = 54;
 var lights = new LightStrips('/dev/spidev0.0', numberOfLEDs);
 
-var xbeeSerialPort = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A800csie-if00-port0';
+var xbeeSerialPort = '/dev/serial/by-id/usb-Arduino__www.arduino.cc__Arduino_Mega_2560_64932343638351D0C241-if00';
 
 var serialport = require('serialport');
 var serialPort = new serialport.SerialPort(xbeeSerialPort,
@@ -100,3 +100,4 @@ io.sockets.on('connection', function (socket) {
    		 off();
  	 });
 });
+off();
